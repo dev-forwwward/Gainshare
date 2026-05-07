@@ -1,0 +1,21 @@
+/*
+*   BUTTONS
+*/
+.button:hover {
+    .button_bg_hover_gradient {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+.button.is-icon:hover .button-arrow-icon {
+    right: 1rem;
+}
+
+/* Contact Form Submit Button */
+.form_button_wrapper:hover {
+    .button_bg_hover_gradient {
+        opacity: 1;
+        width: 100%;
+    }
+}
