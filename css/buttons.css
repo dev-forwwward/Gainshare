@@ -8,7 +8,13 @@
     }
 }
 
-.button.is-icon:hover .button-arrow-icon {
+.button.is-icon:hover .button-arrow-icon,
+.article_link:hover .button.is-icon .button-arrow-icon {
+    right: 1rem;
+}
+
+/* Feat. Articles Hover */
+.feat_article_item_link_overlay:hover + div .button.is-icon .button-arrow-icon {
     right: 1rem;
 }
 
