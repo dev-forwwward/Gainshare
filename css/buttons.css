@@ -13,6 +13,11 @@
     right: 1rem;
 }
 
+.button.is-icon.is-link:hover .button-arrow-icon,
+.article_link:hover .button.is-icon.is-link .button-arrow-icon {
+    right: .25rem;
+}
+
 /* Feat. Articles Hover */
 .feat_article_item_link_overlay:hover + div .button.is-icon .button-arrow-icon {
     right: 1rem;
