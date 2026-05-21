@@ -18,6 +18,12 @@
     right: .25rem;
 }
 
+/* Homepage Feat Case Articles Hover */
+.article_card_element.article_link:hover .article_link_hover_gradient {
+    width: 100%;
+    opacity: 1;
+}
+
 /* Feat. Articles Hover */
 .feat_article_item_link_overlay:hover + div .button.is-icon .button-arrow-icon {
     right: 1rem;
