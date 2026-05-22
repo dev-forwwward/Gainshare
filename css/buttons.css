@@ -23,6 +23,9 @@
     width: 100%;
     opacity: 1;
 }
+.article_link:hover .button.is-link {
+    color: white;
+}
 
 /* Feat. Articles Hover */
 .feat_article_item_link_overlay:hover + div .button.is-icon .button-arrow-icon {
