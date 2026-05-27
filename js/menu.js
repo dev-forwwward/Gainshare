@@ -29,7 +29,7 @@ export function navBarMenu() {
 
             gsap.to(mobileMenu, {
                 opacity: 0,
-                duration: 0.3,
+                duration: 0.25,
                 onComplete: () => {
                     //mobileMenu.classList.add('is-hidden');
                     menuNavBar.classList.remove("w--open");
@@ -62,19 +62,19 @@ export function navBarMenu() {
                         html.classList.add("lock-viewport"); // ✅ lock scroll
                     }
                 })
-                .fromTo('.nav_menu_bg_gradient', { opacity: 0 }, {
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: 'power3.out'
-                }, "<")
-                .fromTo('.menu-link-container, .mobile-dropdown-menu .button, .text-size-medium', {
+                // .fromTo('.nav_menu_bg_gradient', { opacity: 0 }, {
+                //     opacity: 1,
+                //     duration: 0.5,
+                //     ease: 'power3.out'
+                // }, "<")
+                .fromTo('.menu-link, .mobile-dropdown-menu .button-group', {
                     opacity: 0,
                     yPercent: 10
                 }, {
                     opacity: 1,
                     yPercent: 0,
                     stagger: 0.1,
-                    duration: 1,
+                    duration: .8,
                     ease: 'power2.out'
                 }, "<");
         }
