@@ -56,6 +56,22 @@ export function mainInit() {
         });
     });
 
-    console.log("Loading mainInit()");
 
-}
+    // Homepage ScrollTrigger Video
+    const videoSection = document.querySelector(".graph-video-section");
+    if (videoSection) {
+        const video = videoSection.querySelector("video");
+        ScrollTrigger.create({
+            trigger: videoSection,
+            start: "top 75%",
+            end: "bottom 20%",
+            onEnter: () => {
+                video.play();
+            }
+        });
+    }
+
+
+        console.log("Loading mainInit()");
+
+    }
