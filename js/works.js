@@ -13,4 +13,12 @@ export function works() {
             });
         });
     }
+
+    // Image Zoom-in with Fancybox
+    const articleImgs = document.querySelectorAll('figure img');
+    articleImgs.forEach(img => {
+        img.addEventListener('click', () => {
+            img.setAttribute('data-fancybox', 'gallery');
+        });
+    });
 }
