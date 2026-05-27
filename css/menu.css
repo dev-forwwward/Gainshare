@@ -53,6 +53,10 @@
 
 .navbar-menu-open {
 
+    .navbar_component {
+        background-image: none;
+    }
+
     .navbar {
         background-color: var(--base-color-brand--eerie-black);
         border-color: var(--base-color-brand--eerie-black);
