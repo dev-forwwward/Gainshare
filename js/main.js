@@ -56,14 +56,19 @@ export function mainInit() {
         });
     });
 
-
     // Homepage ScrollTrigger Video
     const videoSection = document.querySelector(".graph-video-section");
     if (videoSection) {
         const video = videoSection.querySelector("video");
+        let startPoint = "top 75%";
+        
+        if(window.innerWidth < 480) {
+            startPoint = "top 15%";
+        }
+
         ScrollTrigger.create({
             trigger: videoSection,
-            start: "top 75%",
+            start: startPoint,
             end: "bottom 20%",
             onEnter: () => {
                 video.play();
