@@ -16,9 +16,28 @@
 }
 
 /*
+*   Homepage Hero Video
+*/
+.header33_background-video > video {
+    height: 100% !important;
+}
+
+
+/*
+*   Homepage Graph Video
+*/
+.graph-video-section .graph_video_container {
+    height: auto;
+}
+.graph-video-section .graph_video_container video {
+    position: static;
+    inset: unset;
+    background-position: unset;
+}
+
+/*
 *   Article Images
 */
-
 figure img {
     cursor: zoom-in;
 }
