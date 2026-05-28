@@ -21,4 +21,13 @@ export function works() {
             img.setAttribute('data-fancybox', 'gallery');
         });
     });
+
+    // Make sure all Article links are external
+    const articleLinks = document.querySelectorAll('.w-richtext a');
+    articleLinks.forEach(link => {
+        if (link.getAttribute('href').startsWith('http')) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+        }
+    });
 }
