@@ -39,12 +39,12 @@
 *   Article Links
 */
 .w-richtext a {
-    color: var(--_primitives---colors--dark-teal);
+    color: inherit;
     text-decoration: underline;
     transition: color 0.25s ease;
 }
 .w-richtext a:hover {
-    color: var(--_primitives---colors--light-teal);
+    color: var(--_primitives---colors--dark-teal);
 }
 
 /*
