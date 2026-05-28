@@ -36,6 +36,18 @@
 }
 
 /*
+*   Article Links
+*/
+.w-richtext a {
+    color: var(--_primitives---colors--dark-teal);
+    text-decoration: underline;
+    transition: color 0.25s ease;
+}
+.w-richtext a:hover {
+    color: var(--_primitives---colors--light-teal);
+}
+
+/*
 *   Article Images
 */
 figure img {
