@@ -1,5 +1,20 @@
 export function mainInit() {
 
+    // CookieYes inner scroll handling with Lenis - fix
+    const cookieYesContent = document.querySelector(".cky-preference-body-wrapper");
+    if (cookieYesContent) {
+        cookieYesContent.setAttribute("data-lenis-prevent", "true");
+    } else {
+        const cookieObserver = new MutationObserver(() => {
+            const el = document.querySelector(".cky-preference-body-wrapper");
+            if (el) {
+                el.setAttribute("data-lenis-prevent", "true");
+                cookieObserver.disconnect();
+            }
+        });
+        cookieObserver.observe(document.body, { childList: true, subtree: true });
+    }
+
     // LENIS
     window.lenis = new Lenis(); // globally available
 
@@ -61,8 +76,8 @@ export function mainInit() {
     if (videoSection) {
         const video = videoSection.querySelector("video");
         let startPoint = "top 75%";
-        
-        if(window.innerWidth < 480) {
+
+        if (window.innerWidth < 480) {
             startPoint = "top 15%";
         }
 
@@ -77,6 +92,6 @@ export function mainInit() {
     }
 
 
-        console.log("Loading mainInit()");
+    console.log("Loading mainInit()");
 
-    }
+}
