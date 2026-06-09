@@ -74,5 +74,12 @@ export function form() {
         });
     });
 
+    // Job Application Form
+    const workPosition = document.querySelector('.work_position_name');
+    const workPositionInput = document.querySelector('#workposition');
+    if(workPosition && workPositionInput) {
+        workPositionInput.value = workPosition.textContent.trim();
+    }
+
     console.log("Loading form()");
 }
