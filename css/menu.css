@@ -66,6 +66,9 @@
 
 .navbar-menu-open {
 
+    max-width: 100vw;
+    left: 0;
+
     .navbar_component {
         background-image: none;
     }
