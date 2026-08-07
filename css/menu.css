@@ -71,7 +71,13 @@
 
     .navbar_component {
         background-image: none;
+        backdrop-filter: none;
     }
+
+    .nav_menu_bg_gradient {
+        backdrop-filter: blur(30px);
+    }
+
 
     .navbar {
         background-color: var(--base-color-brand--eerie-black);
