@@ -45,15 +45,6 @@
 .nav_menu_bg_gradient {
     opacity: 1;
 }
-/*
-.mobile-dropdown-menu {
-    transition: opacity 0.2s ease;
-    opacity: 0;
-}
-
-.mobile-dropdown-menu.w--open {
-    opacity: 1;
-} */
 
 .navbar-menu-open {
 
