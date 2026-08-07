@@ -42,15 +42,6 @@
     transition: all .3s;
 }
 
-.nav_dropdown_list::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: -4rem;
-    width: 100%;
-    height: 4rem;
-}
-
 .nav_menu_bg_gradient {
     opacity: 1;
 }
