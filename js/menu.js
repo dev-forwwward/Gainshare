@@ -67,13 +67,14 @@ export function navBarMenu() {
                     duration: 0.5,
                     ease: 'power3.out'
                 }, "<")
-                .fromTo('.menu-link-container, .mobile-dropdown-menu .button, .text-size-medium', {
+                .fromTo('.mobile-dropdown-menu .md_menu_inner_col1_top > div', {
                     opacity: 0,
                     yPercent: 10
                 }, {
+                    delay: .25,
                     opacity: 1,
                     yPercent: 0,
-                    stagger: 0.1,
+                    stagger: 0.05,
                     duration: 1,
                     ease: 'power2.out'
                 }, "<");
