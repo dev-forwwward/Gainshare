@@ -22,6 +22,16 @@ const WISTIA_PLAYER_SRC = 'https://fast.wistia.com/player.js';
 const SIDE_SCALE = 602 / 700;      // Figma: side slide 602x337 vs active 700x392
 const FALLBACK_DELAY = 40000;      // advance anyway if a video never fires "ended"
 
+// Accepts a bare Wistia media ID or any Wistia media/embed URL, e.g.
+// f362186hvi | https://nld.wistia.com/medias/f362186hvi | https://fast.wistia.net/embed/iframe/f362186hvi
+function parseWistiaId(value) {
+    if (!value) return null;
+    const v = value.trim();
+    if (/^[a-z0-9]{10}$/i.test(v)) return v;
+    const m = v.match(/(?:medias|iframe|embed\/medias)\/([a-z0-9]{10})/i) || v.match(/wvideo=([a-z0-9]{10})/i);
+    return m ? m[1] : null;
+}
+
 function loadWistia() {
     if (window.__wistiaPlayerPromise) return window.__wistiaPlayerPromise;
     window.__wistiaPlayerPromise = new Promise((resolve) => {
@@ -38,7 +48,7 @@ function loadWistia() {
 
 function createPlayer(slide) {
     const host = slide.querySelector('.gallery15_video');
-    const mediaId = slide.dataset.mediaId;
+    const mediaId = slide.dataset.wistiaId;
     if (!host || !mediaId || host.querySelector('wistia-player')) return host?.querySelector('wistia-player');
 
     const player = document.createElement('wistia-player');
@@ -77,6 +87,17 @@ export function creativeCarousel() {
         const prevBtn = section.querySelector('.gallery15_arrow.is-prev');
         const nextBtn = section.querySelector('.gallery15_arrow.is-next');
         if (!sliderEl || !wrapper) return;
+
+        // resolve media IDs (static: data-media-id, CMS: data-wistia-url) and drop slides without a valid video
+        [...wrapper.querySelectorAll('.gallery15_slide')].forEach((s) => {
+            const id = parseWistiaId(s.dataset.mediaId || s.dataset.wistiaUrl);
+            if (id) {
+                s.dataset.wistiaId = id;
+            } else {
+                console.warn('creativeCarousel: no valid Wistia media ID on slide, removing it', s);
+                s.remove();
+            }
+        });
 
         const originals = [...wrapper.querySelectorAll('.gallery15_slide')];
         const count = originals.length;
