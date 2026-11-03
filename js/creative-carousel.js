@@ -2,7 +2,7 @@
 *   Solutions / Creative — Video carousel (Relume Gallery 15 shell + Swiper)
 *   Ref behaviour: quickframe.com hero
 *   - centred infinite loop, active slide full size + playing, neighbours scaled to 0.86 + dimmed
-*   - active Wistia video plays muted; when it ends the carousel advances
+*   - active Wistia video autoplays muted and loops; slides change only on user input (arrows, dots, drag, keys)
 *   - only the active video plays; everything pauses when the section is off-screen
 *
 *   Webflow markup (classes):
@@ -20,7 +20,6 @@
 
 const WISTIA_PLAYER_SRC = 'https://fast.wistia.com/player.js';
 const SIDE_SCALE = 602 / 700;      // Figma: side slide 602x337 vs active 700x392
-const FALLBACK_DELAY = 40000;      // advance anyway if a video never fires "ended"
 
 // Accepts a bare Wistia media ID or any Wistia media/embed URL, e.g.
 // f362186hvi | https://nld.wistia.com/medias/f362186hvi | https://fast.wistia.net/embed/iframe/f362186hvi
@@ -67,11 +66,26 @@ function createPlayer(slide) {
         'fullscreen-control': 'false',
         'settings-control': 'false',
         'seo': 'false',
+        'end-video-behavior': 'loop',
         'swatch': 'true',
     };
     Object.entries(attrs).forEach(([k, v]) => player.setAttribute(k, v));
+    player.addEventListener('api-ready', () => { player.dataset.ready = 'true'; }, { once: true });
     host.appendChild(player);
     return player;
+}
+
+// play muted; waits for the Wistia API if the player isn't ready yet
+function playMuted(player) {
+    const go = () => {
+        try {
+            player.muted = true;
+            const p = player.play();
+            if (p && typeof p.catch === 'function') p.catch(() => {});
+        } catch (e) {}
+    };
+    if (player.dataset.ready === 'true') go();
+    else player.addEventListener('api-ready', go, { once: true });
 }
 
 export function creativeCarousel() {
@@ -131,7 +145,6 @@ export function creativeCarousel() {
         }
 
         let inView = false;
-        let fallbackTimer = null;
         let playersReady = false;
 
         const swiper = new Swiper(sliderEl, {
@@ -211,7 +224,6 @@ export function creativeCarousel() {
         }
 
         function syncPlayback() {
-            clearTimeout(fallbackTimer);
             if (!playersReady) return;
             const active = swiper.slides[swiper.activeIndex];
 
@@ -224,8 +236,7 @@ export function creativeCarousel() {
             if (!inView || reduceMotion) return;
             const player = createPlayer(active);
             if (!player) return;
-            try { player.play(); } catch (e) {}
-            fallbackTimer = setTimeout(() => swiper.slideNext(), FALLBACK_DELAY);
+            playMuted(player);
         }
 
         function initPlayers() {
@@ -235,9 +246,6 @@ export function creativeCarousel() {
                     const player = createPlayer(slide);
                     if (!player || player.dataset.bound) return;
                     player.dataset.bound = 'true';
-                    player.addEventListener('ended', () => {
-                        if (slide === swiper.slides[swiper.activeIndex]) swiper.slideNext();
-                    });
                 });
                 playersReady = true;
             });
@@ -250,7 +258,6 @@ export function creativeCarousel() {
                 if (inView) {
                     initPlayers().then(syncPlayback);
                 } else {
-                    clearTimeout(fallbackTimer);
                     swiper.slides.forEach((s) => {
                         try { s.querySelector('wistia-player')?.pause(); } catch (e) {}
                     });
@@ -261,7 +268,6 @@ export function creativeCarousel() {
 
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                clearTimeout(fallbackTimer);
                 swiper.slides.forEach((s) => { try { s.querySelector('wistia-player')?.pause(); } catch (e) {} });
             } else if (inView) {
                 syncPlayback();
