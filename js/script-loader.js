@@ -5,6 +5,7 @@ import { works } from './works.js';
 import { form } from './form.js';
 import { blogCategories } from './blog-categories.js';
 import { footerDate } from './footer-date.js';
+import { creativeCarousel } from './creative-carousel.js';
 
 // not all script files are being loaded by default (example: faqs...)
 
@@ -15,5 +16,6 @@ works();
 blogCategories();
 form();
 footerDate();
+creativeCarousel();
 
 console.log("Loading main scripts loader");
